@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "photos#index"
 
-   devise_for :users
+  devise_for :users
 
   # Routes for the Comment resource:
   # CREATE
