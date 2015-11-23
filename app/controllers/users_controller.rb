@@ -7,6 +7,7 @@ def index
   def show
     @user = User.find(params[:id])
     @like = Like.new
+    @photo = Photo.new
   end
 
   def new
@@ -51,4 +52,5 @@ def index
 
     redirect_to "/users", :notice => "User deleted."
   end
+
 end
