@@ -10,7 +10,10 @@
   <div class="panel panel-default">
 
     <div class="panel-heading">
-      <%= photo.user.username %> <%= time_ago_in_words(photo.created_at) %> ago
+      <h3 class="panel-title">
+        <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
+        <small><%= time_ago_in_words(photo.created_at) %> ago </small>
+      </h3>
     </div>
 
     <div class="panel-body">
@@ -19,7 +22,7 @@
       </a>
       <% if current_user.liked_photos.include? photo %>
       <p>
-          <a href="/delete_like/<%= current_user %>" class="btn btn-link">
+          <a href="/delete_like/<%= Like.find_by(:user => current_user, :photo => photo).id %>" class="btn btn-link">
             <i class="fa fa-heart"></i>
           </a>
           <% usernames = [] %>
@@ -36,7 +39,7 @@
             <input name="photo_id" type="hidden" value="<%= photo.id %>">
 
             <!-- Label and input for user_id -->
-            <input name="user_id" type="hidden" value="<%= photo.user.id %>">
+            <input name="user_id" type="hidden" value="<%= current_user.id %>">
 
             <button class="btn btn-link">
             <i class="fa fa-heart-o"></i>
@@ -51,6 +54,15 @@
       </p>
       <% end %>
       <ul class="media-list">
+        <li class="media">
+          <div class="media-body">
+            <h6 class="media-heading text-primary">
+              <a href="/users/<%= current_user.id %>"><%= current_user.username %></a>
+              <small><%= time_ago_in_words(photo.created_at) %></small>
+            </h6>
+            <p><%= photo.caption %></p>
+          </div>
+        </li>
         <% photo.comments.each do |comment| %>
         <li class="media">
           <div class="media-body">
